@@ -52,3 +52,30 @@ Capture LangSmith traces and screenshots of your own runs for the evidence log. 
 ## Limitations
 
 Retrieval is simple keyword matching and may miss paraphrases, so testing matters. The refund agent still receives the original message (including any PII), as in the base lab. There is no actual billing-record verification, no monetary limits, and no durable database; a human must still review each proposed refund. Do not claim the example policy is equivalent to a verified charge.
+
+## LangSmith evidence setup
+
+Create a local `.env` next to the Python scripts (never commit the key):
+
+```dotenv
+LANGSMITH_TRACING=true
+LANGSMITH_API_KEY=your_real_api_key_here
+LANGSMITH_PROJECT=IS590R-Lab6-RAG
+# Optional for regional/custom endpoints:
+# LANGSMITH_ENDPOINT=https://api.smith.langchain.com
+```
+
+Because the script calls `load_dotenv()` before constructing the agents, LangChain tracing should pick up these settings. Startup prints **only** whether tracing and the key are configured and the selected project; it never displays the key. This is a configuration check, **not confirmation** that traces reached LangSmith. After a run, open the project in LangSmith, find a run named `support_rag_<case>` (tagged `lab6`, `rag`), and verify the individual `retrieve_policy` node and the subsequent refund agent are visible.
+
+**Privacy warning:** LangSmith tracing can capture full model inputs and tool arguments, including the simulated customer's contact and payment details. Only run the included **fictional** test messages; do not submit real customer PII. The local `rag_run_metrics.csv` intentionally records only case ID, classification, policy IDs, proposed amounts, approval types, and elapsed seconds. It is gitignored.
+
+Run `python middlewareHITLMAS_RAG.py` and review `rag_run_metrics.csv`. For fair baseline-versus-RAG evidence, run the original `middlewareHITLMAS.py` with the same model and identical synthetic inputs, manually record baseline timings and refund proposals from the terminal/LangSmith, and use multiple replicates. Record **observed** results, not just claims that a policy ought to work. If the run was approved/rejected, the decision is shown in the new CSV; LangSmith trace links must be copied/share-enabled separately in LangSmith, because local code does not create public trace URLs.
+
+### What to capture in the memo
+
+- Link to the baseline LangSmith trace and the corresponding RAG trace for each comparison
+- Screenshots of the RAG retrieval node showing policy ID(s) and the refund proposal/approval
+- The `rag_run_metrics.csv` row for elapsed time, selected policy, and refund proposal
+- A discussion of whether the proposed refunds were correct for the scenario and whether policy-following improved
+
+If nothing appears in LangSmith, inspect `LANGSMITH_TRACING`, key validity, project name, endpoint/workspace selection, and network access; do **not** print the key.
