@@ -4,3 +4,6 @@ __pycache__/
 *.pyc
 rag_run_metrics.csv
 baseline_run_metrics.csv
+evaluation_results.csv
+evaluation_results.summary.json
+extension_evidence_summary.md
