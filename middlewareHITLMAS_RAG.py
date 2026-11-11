@@ -1,5 +1,8 @@
+import csv
 import json
+import os
 from pathlib import Path
+from time import perf_counter
 
 from dotenv import load_dotenv
 from typing_extensions import TypedDict
@@ -167,12 +170,17 @@ support_graph = graph.compile(checkpointer=InMemorySaver())
 #support_graph.get_graph().draw_mermaid_png(output_file_path="support_workflow.png")
 
 
-def run_with_approval(initial_state: dict, thread_id: str) -> dict:
+def run_with_approval(initial_state: dict, thread_id: str, audit: dict | None = None) -> dict:
     """
     Invoke, check for a pause, collect a human decision, resume, 
     repeat until the graph actually finishes.
     """
-    config = {"configurable": {"thread_id": thread_id}}
+    config = {
+        "configurable": {"thread_id": thread_id},
+        "run_name": f"support_rag_{thread_id}",
+        "tags": ["lab6", "rag", "policy_retrieval"],
+        "metadata": {"variant": "rag", "case": thread_id, "model": "qwen2.5:3b"},
+    }
     result = support_graph.invoke(initial_state, config=config)
 
     while "__interrupt__" in result:
@@ -180,6 +188,10 @@ def run_with_approval(initial_state: dict, thread_id: str) -> dict:
         actions = interrupt.value.get("action_requests", interrupt.value)
         print("\n--- Needs human approval ---")
         print(actions)
+        if audit is not None:
+            # Only record the amount, never the email or payment details.
+            for action in actions:
+                audit["proposed_amounts"].append(str(action.get("args", {}).get("amount", "")))
         decision_type = input("approve / edit / reject? ").strip().lower()
 
         if decision_type == "approve":
@@ -201,6 +213,8 @@ def run_with_approval(initial_state: dict, thread_id: str) -> dict:
             print("Please enter approve, edit, or reject.")
             continue
 
+        if audit is not None:
+            audit["human_decisions"].append(decision["type"])
         result = support_graph.invoke(Command(resume={"decisions": [decision]}), config=config)
 
     return result
@@ -239,9 +253,22 @@ SAMPLE_MESSAGES = {
 }
 
 if __name__ == "__main__":
+    tracing_on = os.getenv("LANGSMITH_TRACING", "").lower() == "true"
+    key_present = bool(os.getenv("LANGSMITH_API_KEY"))
+    print(f"LangSmith tracing requested: {tracing_on}; API key configured: {key_present}")
+    print(f"LangSmith project: {os.getenv('LANGSMITH_PROJECT', 'default')}")
+    if not tracing_on or not key_present:
+        print("WARNING: LangSmith tracing is not fully configured in .env.")
+    metrics_path = Path(__file__).with_name("rag_run_metrics.csv")
+    metrics_columns = [
+        "case", "variant", "model", "elapsed_seconds", "category",
+        "retrieved_policy_ids", "proposed_refund_amounts", "human_decisions",
+    ]
     i = 1
     for label, raw_message in SAMPLE_MESSAGES.items():
         print(f"\n{'=' * 70}\nRunning message {i}: {label}\n{'=' * 70}")
+        audit = {"proposed_amounts": [], "human_decisions": []}
+        started = perf_counter()
         final = run_with_approval(
             {
                 "raw_message": raw_message,
@@ -251,7 +278,29 @@ if __name__ == "__main__":
                 "refund_outcome": "",
             },
             thread_id=label,
+            audit=audit,
         )
+        elapsed = round(perf_counter() - started, 2)
+        policy_ids = [
+            policy_id for policy_id in ("POL-001", "POL-002", "POL-003", "POL-004")
+            if f"[{policy_id}]" in final.get("policy_context", "")
+        ]
+        write_header = not metrics_path.exists()
+        with metrics_path.open("a", newline="", encoding="utf-8") as metrics_file:
+            writer = csv.DictWriter(metrics_file, fieldnames=metrics_columns)
+            if write_header:
+                writer.writeheader()
+            writer.writerow({
+                "case": label,
+                "variant": "rag",
+                "model": "qwen2.5:3b",
+                "elapsed_seconds": elapsed,
+                "category": final["category"],
+                "retrieved_policy_ids": "|".join(policy_ids),
+                "proposed_refund_amounts": "|".join(audit["proposed_amounts"]),
+                "human_decisions": "|".join(audit["human_decisions"]),
+            })
+        print(f"Elapsed time: {elapsed:.2f}s | Metrics: {metrics_path.name}")
         print("\n--- Redacted summary (this is all `triage` ever saw) ---")
         print(final["redacted_summary"])
         print("\n--- Category ---")
