@@ -1,56 +1,149 @@
 [
   {
     "id": "POL-001",
-    "title": "Duplicate charges",
+    "title": "Duplicate payments",
     "keywords": [
-      "duplicate",
       "charged twice",
-      "double charged",
+      "two identical",
+      "duplicate",
+      "twice for one",
+      "double payment",
       "twice",
-      "same day",
-      "two charges"
+      "same purchase",
+      "two payments"
     ],
-    "text": "If a customer was charged twice for the same purchase, propose refunding only the EXTRA duplicate charge, not both charges. Two charges of $49.99 for one purchase imply a proposed refund of $49.99, not $99.98. Actual transactions must be verified before payment."
+    "text": "When a single order is paid more than once, only the redundant payment(s) are eligible for reversal. Do not add together both the legitimate and duplicate payments. Confirm that the underlying order and payment identifiers refer to one purchase before fulfillment."
   },
   {
     "id": "POL-002",
-    "title": "Announced subscription price changes",
+    "title": "Subscription renewals and cancellation",
     "keywords": [
-      "subscription",
-      "plan",
-      "price change",
-      "price increase",
-      "went from",
-      "announced",
-      "september"
+      "renewal",
+      "renewed",
+      "auto-renew",
+      "cancel",
+      "cancellation",
+      "subscription rebilled",
+      "subscription"
     ],
-    "text": "An announced subscription price increase is not automatically refundable. If the customer received prior notice, explain the policy and offer escalation or plan review; do not propose a refund solely because they dislike the new price."
+    "text": "An automatic subscription renewal may be refunded if cancellation is requested within 48 hours of renewal and the renewed period has not been used. A cancellation requested later or after usage is not automatically refundable. Verify the dates and usage before fulfillment."
   },
   {
     "id": "POL-003",
-    "title": "Unverified or unclear billing disputes",
+    "title": "Communicated price changes",
     "keywords": [
-      "charged",
-      "billing",
-      "refund",
-      "overcharged",
-      "dispute",
-      "cannot find",
-      "unknown",
-      "unclear"
+      "price increase",
+      "price change",
+      "new rate",
+      "increased",
+      "went up",
+      "higher monthly",
+      "notice",
+      "rate adjustment"
     ],
-    "text": "Do not invent amounts or assume customer statements match billing records. If enough detail is missing or no transaction record is available, request verification or manual review before any real refund."
+    "text": "A correctly disclosed price change that takes effect after advance notice is not refundable merely because a customer dislikes the new rate. If notice was missing or the billed rate disagrees with the stated terms, investigate under billing discrepancies."
   },
   {
     "id": "POL-004",
-    "title": "Previously refunded charges",
+    "title": "Service downtime credit",
+    "keywords": [
+      "outage",
+      "down",
+      "offline",
+      "service unavailable",
+      "downtime",
+      "couldn't access",
+      "could not access"
+    ],
+    "text": "For a verified continuous service outage lasting at least 24 hours, offer a service CREDIT rather than a cash refund. Shorter or unverified interruptions require review. A cash-refund tool must not be used to issue service credit."
+  },
+  {
+    "id": "POL-005",
+    "title": "Unused add-on purchases",
+    "keywords": [
+      "add-on",
+      "add on",
+      "extra feature",
+      "upgrade",
+      "accidental purchase",
+      "unused purchase",
+      "unopened",
+      "never activated"
+    ],
+    "text": "An accidental purchase of an add-on may be eligible for a refund within 14 days if the add-on has never been activated or consumed. Verify purchase date and activation status. Purchase of a used or activated add-on is not automatically refundable."
+  },
+  {
+    "id": "POL-006",
+    "title": "Consumed digital content",
+    "keywords": [
+      "downloaded",
+      "download",
+      "watched",
+      "consumed",
+      "streamed",
+      "used content",
+      "digital course",
+      "digital purchase"
+    ],
+    "text": "Digital content that has already been accessed, downloaded, streamed, or otherwise consumed is ordinarily nonrefundable unless defective or required by law. Ask for review of defect claims rather than automatically issuing a refund."
+  },
+  {
+    "id": "POL-007",
+    "title": "Previously refunded transactions",
     "keywords": [
       "already refunded",
-      "refunded before",
+      "already received",
       "refund again",
-      "second refund",
-      "previous refund"
+      "another refund",
+      "reimbursed",
+      "refund status",
+      "previously refunded"
     ],
-    "text": "Never refund the same transaction twice. Check the payment provider's prior refunds and transaction IDs before any real refund."
+    "text": "A transaction that already received a full refund must not be refunded again. Check the existing refund's status and transaction ID and refer unresolved posting delays to support."
+  },
+  {
+    "id": "POL-008",
+    "title": "Suspected unauthorized charges",
+    "keywords": [
+      "fraud",
+      "fraudulent",
+      "stolen",
+      "not mine",
+      "never authorized",
+      "unauthorized",
+      "did not authorize",
+      "didn't authorize"
+    ],
+    "text": "Suspected fraud or unauthorized charges must go to the fraud investigation queue and account verification. Do not have the refund agent directly issue a cash refund without that investigation."
+  },
+  {
+    "id": "POL-009",
+    "title": "Incorrect billed amount",
+    "keywords": [
+      "invoice",
+      "charged more",
+      "overbilled",
+      "incorrect amount",
+      "wrong amount",
+      "billing error",
+      "quoted",
+      "receipt",
+      "agreed price"
+    ],
+    "text": "When verified invoice and payment records show a charge higher than the agreed purchase price, only the excess may be proposed for refund. If documentation is missing or amounts conflict, request verification instead of guessing."
+  },
+  {
+    "id": "POL-010",
+    "title": "Unclear claims, limits and exceptions",
+    "keywords": [
+      "billing question",
+      "not sure",
+      "please check",
+      "refund",
+      "charge",
+      "payment",
+      "account"
+    ],
+    "text": "When evidence is incomplete, transactions are unverifiable, or policies conflict, request more details or human review. Never fabricate records, charges, or a refund amount. Exceptions require supervisor sign-off. All payment actions must be approved and supported by transaction verification."
   }
 ]
