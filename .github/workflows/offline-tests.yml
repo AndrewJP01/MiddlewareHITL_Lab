@@ -1,0 +1,22 @@
+name: Policy Retrieval Tests
+
+on:
+  push:
+    branches:
+      - feature/rag-refund-policy
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  offline-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check Python syntax
+        run: python -m py_compile middlewareHITLMAS.py middlewareHITLMAS_RAG.py evaluate_lab.py test_policy_retrieval.py
+      - name: Test retrieval and dataset (no Ollama needed)
+        run: python -m unittest -v test_policy_retrieval.py

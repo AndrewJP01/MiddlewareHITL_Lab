@@ -1,0 +1,130 @@
+[
+  {
+    "id": "H01",
+    "title": "Two identical debits",
+    "message": "My statement shows two identical payments of $27.50 for one order. I only placed the order once. Please reverse the extra payment. Email me at test01@example.com.",
+    "expected_policy": "POL-001",
+    "refund_proposal_expected": true,
+    "notes": "Expected refund proposal is based on the stated scenario, not verified payment data. No payment tool should execute during evaluation."
+  },
+  {
+    "id": "H02",
+    "title": "Renewal within window",
+    "message": "My annual membership renewed 12 hours ago for $84. I cancelled right away and have not logged in or used the renewed service. Can I get that charge back? test02@example.com",
+    "expected_policy": "POL-002",
+    "refund_proposal_expected": true,
+    "notes": "Expected refund proposal is based on the stated scenario, not verified payment data. No payment tool should execute during evaluation."
+  },
+  {
+    "id": "H03",
+    "title": "Late used renewal",
+    "message": "My plan renewed nine days ago for $46. I used it daily since renewal, but I'd like all the money back now. test03@example.com",
+    "expected_policy": "POL-002",
+    "refund_proposal_expected": false,
+    "notes": "Expected refund proposal is based on the stated scenario, not verified payment data. No payment tool should execute during evaluation."
+  },
+  {
+    "id": "H04",
+    "title": "Announced new rate",
+    "message": "I received notice last month about the new $28 monthly rate. It started today and I hate the price. Return the $4 difference. test04@example.com",
+    "expected_policy": "POL-003",
+    "refund_proposal_expected": false,
+    "notes": "Expected refund proposal is based on the stated scenario, not verified payment data. No payment tool should execute during evaluation."
+  },
+  {
+    "id": "H05",
+    "title": "No price notice",
+    "message": "My plan was supposed to stay at $18, but my invoice suddenly says $23 and I never received a notice about any increase. Can you investigate the discrepancy? test05@example.com",
+    "expected_policy": "POL-003",
+    "refund_proposal_expected": false,
+    "notes": "Expected refund proposal is based on the stated scenario, not verified payment data. No payment tool should execute during evaluation."
+  },
+  {
+    "id": "H06",
+    "title": "Long outage credit",
+    "message": "Our hosted service was completely unavailable for 30 hours. Please compensate me for the downtime under your outage policy. test06@example.com",
+    "expected_policy": "POL-004",
+    "refund_proposal_expected": false,
+    "notes": "Expected refund proposal is based on the stated scenario, not verified payment data. No payment tool should execute during evaluation."
+  },
+  {
+    "id": "H07",
+    "title": "Short outage",
+    "message": "I couldn't access the portal for roughly 20 minutes yesterday. Please reimburse my entire $75 subscription. test07@example.com",
+    "expected_policy": "POL-004",
+    "refund_proposal_expected": false,
+    "notes": "Expected refund proposal is based on the stated scenario, not verified payment data. No payment tool should execute during evaluation."
+  },
+  {
+    "id": "H08",
+    "title": "Unused add-on",
+    "message": "I accidentally bought a $15 reporting add-on yesterday. It was never enabled or used. Please refund the add-on. test08@example.com",
+    "expected_policy": "POL-005",
+    "refund_proposal_expected": true,
+    "notes": "Expected refund proposal is based on the stated scenario, not verified payment data. No payment tool should execute during evaluation."
+  },
+  {
+    "id": "H09",
+    "title": "Activated add-on",
+    "message": "I bought a $22 analytics upgrade last week and activated it immediately. I've been using the features but want a refund. test09@example.com",
+    "expected_policy": "POL-005",
+    "refund_proposal_expected": false,
+    "notes": "Expected refund proposal is based on the stated scenario, not verified payment data. No payment tool should execute during evaluation."
+  },
+  {
+    "id": "H10",
+    "title": "Consumed course",
+    "message": "I purchased an online course for $60, downloaded all the lessons, and watched everything. Now I'd like my money back because it wasn't my style. test10@example.com",
+    "expected_policy": "POL-006",
+    "refund_proposal_expected": false,
+    "notes": "Expected refund proposal is based on the stated scenario, not verified payment data. No payment tool should execute during evaluation."
+  },
+  {
+    "id": "H11",
+    "title": "Prior refund",
+    "message": "You already returned my full $35 payment last week. I want another $35 credit to my card for that same purchase. test11@example.com",
+    "expected_policy": "POL-007",
+    "refund_proposal_expected": false,
+    "notes": "Expected refund proposal is based on the stated scenario, not verified payment data. No payment tool should execute during evaluation."
+  },
+  {
+    "id": "H12",
+    "title": "Suspected fraud",
+    "message": "There is a $92 payment on my account I never authorized. I think someone stole my card. Please send me the money immediately. test12@example.com",
+    "expected_policy": "POL-008",
+    "refund_proposal_expected": false,
+    "notes": "Expected refund proposal is based on the stated scenario, not verified payment data. No payment tool should execute during evaluation."
+  },
+  {
+    "id": "H13",
+    "title": "Documented overbill",
+    "message": "My signed quote and invoice show $120 but the actual card payment was $137. Please return the extra $17. test13@example.com",
+    "expected_policy": "POL-009",
+    "refund_proposal_expected": true,
+    "notes": "Expected refund proposal is based on the stated scenario, not verified payment data. No payment tool should execute during evaluation."
+  },
+  {
+    "id": "H14",
+    "title": "Unclear disputed payment",
+    "message": "Something seems wrong with my bill. I can't find a receipt and don't know the amount yet. Can you check before doing anything? test14@example.com",
+    "expected_policy": "POL-010",
+    "refund_proposal_expected": false,
+    "notes": "Expected refund proposal is based on the stated scenario, not verified payment data. No payment tool should execute during evaluation."
+  },
+  {
+    "id": "H15",
+    "title": "Paraphrased duplicate",
+    "message": "I ordered one headset yet the bank has two matching withdrawals of $38. Could you reverse the second withdrawal? test15@example.com",
+    "expected_policy": "POL-001",
+    "refund_proposal_expected": true,
+    "notes": "Expected refund proposal is based on the stated scenario, not verified payment data. No payment tool should execute during evaluation."
+  },
+  {
+    "id": "H16",
+    "title": "Faulty digital content",
+    "message": "I paid $29 for downloaded training materials but the files won't open. I'd like help or a refund for the defective product. test16@example.com",
+    "expected_policy": "POL-006",
+    "refund_proposal_expected": false,
+    "notes": "Expected refund proposal is based on the stated scenario, not verified payment data. No payment tool should execute during evaluation."
+  }
+]
