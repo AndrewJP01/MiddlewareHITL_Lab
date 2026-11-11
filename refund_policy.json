@@ -1,0 +1,56 @@
+[
+  {
+    "id": "POL-001",
+    "title": "Duplicate charges",
+    "keywords": [
+      "duplicate",
+      "charged twice",
+      "double charged",
+      "twice",
+      "same day",
+      "two charges"
+    ],
+    "text": "If a customer was charged twice for the same purchase, propose refunding only the EXTRA duplicate charge, not both charges. Two charges of $49.99 for one purchase imply a proposed refund of $49.99, not $99.98. Actual transactions must be verified before payment."
+  },
+  {
+    "id": "POL-002",
+    "title": "Announced subscription price changes",
+    "keywords": [
+      "subscription",
+      "plan",
+      "price change",
+      "price increase",
+      "went from",
+      "announced",
+      "september"
+    ],
+    "text": "An announced subscription price increase is not automatically refundable. If the customer received prior notice, explain the policy and offer escalation or plan review; do not propose a refund solely because they dislike the new price."
+  },
+  {
+    "id": "POL-003",
+    "title": "Unverified or unclear billing disputes",
+    "keywords": [
+      "charged",
+      "billing",
+      "refund",
+      "overcharged",
+      "dispute",
+      "cannot find",
+      "unknown",
+      "unclear"
+    ],
+    "text": "Do not invent amounts or assume customer statements match billing records. If enough detail is missing or no transaction record is available, request verification or manual review before any real refund."
+  },
+  {
+    "id": "POL-004",
+    "title": "Previously refunded charges",
+    "keywords": [
+      "already refunded",
+      "refunded before",
+      "refund again",
+      "second refund",
+      "previous refund"
+    ],
+    "text": "Never refund the same transaction twice. Check the payment provider's prior refunds and transaction IDs before any real refund."
+  }
+]
