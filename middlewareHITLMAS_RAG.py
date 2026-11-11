@@ -60,9 +60,10 @@ draft_refund_action = create_agent(
         "with their actual email, a specific amount, and a one-line "
         "reason. If a refund isn't clearly warranted, explain why instead "
         "of calling the tool. Use the retrieved policy passages as evidence "
-        "and cite the policy ID in your reasoning. For duplicate charges, "
-        "propose only the EXTRA charge, not the sum of both charges. "
-        "Policies are examples, not verified transaction records."
+        "and cite a relevant policy ID in your reasoning. Do not invent "
+        "policy rules or financial records. If a policy indicates escalation, "
+        "verification, or a noncash service credit, do NOT call the cash "
+        "refund tool. Policies are fictional examples, not verified records."
     ),
     middleware=[
         HumanInTheLoopMiddleware(
@@ -119,10 +120,10 @@ def retrieve_policy_node(state: SupportState) -> dict:
         score = sum(1 for keyword in policy["keywords"] if keyword in query)
         if score:
             ranked.append((score, policy))
-    ranked.sort(key=lambda pair: pair[0], reverse=True)
-    matches = [policy for _, policy in ranked[:2]]
+    ranked.sort(key=lambda pair: (-pair[0], pair[1]["id"]))
+    matches = [policy for _, policy in ranked[:3]]
     if not matches:
-        matches = [policy for policy in policies if policy["id"] == "POL-003"]
+        matches = [policy for policy in policies if policy["id"] == "POL-010"]
 
     context = "\n\n".join(
         f"[{policy['id']}] {policy['title']}: {policy['text']}"
@@ -282,7 +283,7 @@ if __name__ == "__main__":
         )
         elapsed = round(perf_counter() - started, 2)
         policy_ids = [
-            policy_id for policy_id in ("POL-001", "POL-002", "POL-003", "POL-004")
+            policy_id for policy_id in (f"POL-{i:03}" for i in range(1, 11))
             if f"[{policy_id}]" in final.get("policy_context", "")
         ]
         write_header = not metrics_path.exists()
